@@ -20,7 +20,7 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(String titulo, String contenido, LocalDateTime fechaCreacion) {
+    public Nota(String titulo, Long contenido, LocalDateTime fechaCreacion) {
         this.titulo = titulo;
         this.contenido = contenido;
         this.fechaCreacion = fechaCreacion;
@@ -34,7 +34,7 @@ public class Nota {
         return titulo;
     }
 
-    public String getContenido() {
+    public Long getContenido() {
         return contenido;
     }
 
@@ -50,7 +50,7 @@ public class Nota {
         this.titulo = titulo;
     }
 
-    public void setContenido(String contenido) {
+    public void setContenido(Long contenido) {
         this.contenido = contenido;
     }
 

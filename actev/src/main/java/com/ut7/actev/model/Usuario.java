@@ -1,5 +1,9 @@
 package com.ut7.actev.model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +20,8 @@ public class Usuario {
     private String email;
     private String passwordHash;
 
-    // @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Nota> notas;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Nota> notas;
     
     public Usuario() {
     }
@@ -44,9 +48,9 @@ public class Usuario {
         return passwordHash;
     }
 
-    // public List<Nota> getNotas() {
-    //     return notas;
-    // }
+    public List<Nota> getNotas() {
+        return notas;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -64,8 +68,25 @@ public class Usuario {
         this.passwordHash = passwordHash;
     }
 
-    // public List<Nota> getNotas() {
-    //     return notas;
-    // }
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
 
+    
+
+    public void hashPassword() {
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = md.digest(this.passwordHash.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        this.passwordHash = sb.toString();
+    } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException("Error al hashear la contraseña", e);
+    }
+
+    }
+    
 }
