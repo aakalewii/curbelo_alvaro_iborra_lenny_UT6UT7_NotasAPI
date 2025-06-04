@@ -1,7 +1,14 @@
 package com.ut7.actev.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "notas")
@@ -16,6 +23,11 @@ public class Nota {
     private Long contenido;
 
     private LocalDateTime fechaCreacion;
+
+    // Relación ManyToOne con Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     public Nota() {
     }
@@ -42,6 +54,10 @@ public class Nota {
         return fechaCreacion;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -56,5 +72,9 @@ public class Nota {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
