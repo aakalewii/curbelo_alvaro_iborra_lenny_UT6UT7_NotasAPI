@@ -2,6 +2,8 @@ package com.ut7.actev.controller;
 
 import com.ut7.actev.model.Usuario;
 import com.ut7.actev.service.UsuarioService;
+
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +29,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
+    public Usuario createUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.save(usuario);
     }
 
     @PutMapping("/{id}")
-    public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public Usuario updateUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
         return usuarioService.update(id, usuario);
     }
 

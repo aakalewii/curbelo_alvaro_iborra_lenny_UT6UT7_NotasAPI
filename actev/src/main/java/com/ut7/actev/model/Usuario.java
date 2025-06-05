@@ -3,6 +3,7 @@ package com.ut7.actev.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import jakarta.validation.constraints.NotBlank;
 
 import jakarta.persistence.*;
 
@@ -14,6 +15,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message= "El nombre debe ser obligatorio.")
     private String nombre;
     
     @Column(unique = true)
