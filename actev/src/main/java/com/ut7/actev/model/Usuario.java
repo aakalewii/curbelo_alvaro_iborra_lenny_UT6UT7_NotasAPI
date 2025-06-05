@@ -15,11 +15,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message= "El nombre debe ser obligatorio.")
+    @NotBlank(message= "El nombre es obligatorio.")
     private String nombre;
     
+    @Email
+    @NotBlank(message= "El E-mail es obligatorio.")
     @Column(unique = true)
     private String email;
+    
+    @Size(min = 8, max = 100, message = "La contraseña debe tener entre 8 y 100 caracteres")
+    @NotBlank(message= "La contraseña es obligatoria.")
     private String passwordHash;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)

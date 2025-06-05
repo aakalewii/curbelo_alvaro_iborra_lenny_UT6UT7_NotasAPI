@@ -22,7 +22,6 @@ public class UsuarioServiceImpl extends AbstractCrudService<Usuario, Long> imple
 
     @Override
     public Usuario update(Long id, Usuario usuario) {
-        // Opcional: hashear solo si la contraseña ha cambiado y no está ya hasheada
         if (usuario.getPasswordHash() != null && usuario.getPasswordHash().length() < 64) {
             usuario.hashPassword();
         }
