@@ -3,6 +3,9 @@ package com.ut7.actev.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.*;
 
 import jakarta.persistence.*;
@@ -28,6 +31,7 @@ public class Usuario {
     private String passwordHash;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Nota> notas;
     
     public Usuario() {
