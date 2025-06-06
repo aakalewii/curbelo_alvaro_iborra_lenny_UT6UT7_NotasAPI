@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+
 
 import com.ut7.actev.model.Nota;
 import com.ut7.actev.model.Usuario;
@@ -64,7 +66,7 @@ public class NotaController {
 
     // POST /notas?usuarioId={id}
     @PostMapping
-    public ResponseEntity<Nota> createNota(@RequestBody Nota nota, @RequestParam Long usuarioId) {
+    public ResponseEntity<Nota> createNota(@Valid @RequestBody Nota nota, @RequestParam Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
         nota.setUsuario(usuario);
@@ -74,7 +76,7 @@ public class NotaController {
 
     // PUT /notas/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<Nota> updateNota(@PathVariable Long id, @RequestBody Nota nota) {
+    public ResponseEntity<Nota> updateNota(@PathVariable Long id,@Valid @RequestBody Nota nota) {
     return notaRepository.findById(id)
             .map(existente -> {
                 existente.setTitulo(nota.getTitulo());

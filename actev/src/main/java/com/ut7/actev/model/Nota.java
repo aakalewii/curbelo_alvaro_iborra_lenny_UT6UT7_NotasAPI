@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "notas")
@@ -18,9 +19,12 @@ public class Nota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message= "El Titulo es obligatorio.")
     private String titulo;
 
+    @NotBlank(message= "El Contenido es obligatorio.")
     private Long contenido;
+
 
     private LocalDateTime fechaCreacion;
 
