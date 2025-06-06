@@ -26,7 +26,7 @@ public class Nota {
     private Long contenido;
 
 
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 
     // Relación ManyToOne con Usuario
     @ManyToOne
@@ -36,10 +36,10 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(String titulo, Long contenido, LocalDateTime fechaCreacion) {
+    public Nota(String titulo, Long contenido) {
         this.titulo = titulo;
         this.contenido = contenido;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDateTime.now();
     }
 
     public Long getId() {
