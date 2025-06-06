@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "notas")
@@ -23,7 +23,7 @@ public class Nota {
     private String titulo;
 
     @NotBlank(message= "El Contenido es obligatorio.")
-    private Long contenido;
+    private String contenido;
 
 
     private LocalDateTime fechaCreacion = LocalDateTime.now();
@@ -36,7 +36,7 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(String titulo, Long contenido) {
+    public Nota(String titulo, String contenido) {
         this.titulo = titulo;
         this.contenido = contenido;
         this.fechaCreacion = LocalDateTime.now();
@@ -50,7 +50,7 @@ public class Nota {
         return titulo;
     }
 
-    public Long getContenido() {
+    public String getContenido() {
         return contenido;
     }
 
@@ -70,7 +70,7 @@ public class Nota {
         this.titulo = titulo;
     }
 
-    public void setContenido(Long contenido) {
+    public void setContenido(String contenido) {
         this.contenido = contenido;
     }
 
