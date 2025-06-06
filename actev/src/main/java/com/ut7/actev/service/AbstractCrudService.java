@@ -37,7 +37,7 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
     @Override
     public T update(ID id, T ent) {
         if (!repo.existsById(id)) {
-            throw new IllegalArgumentException("El Usuario con ID " + id + " no existe.");
+            throw new IllegalArgumentException("La entidad con ID " + id + " no existe.");
         }
 
         T existing = repo.findById(id).orElseThrow();
