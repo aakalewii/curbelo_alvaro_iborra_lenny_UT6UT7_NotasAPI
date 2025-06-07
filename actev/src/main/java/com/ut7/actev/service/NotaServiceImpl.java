@@ -26,7 +26,7 @@ public class NotaServiceImpl extends AbstractCrudService<Nota, Long> implements 
     public Optional<Nota> getById(Long id) {
         Optional<Nota> nota = notaRepository.findById(id);
         if (nota.isEmpty()) {
-            throw new IllegalArgumentException("Nota no encontrada");
+            throw new IllegalStateException("Nota no encontrada");
         }
         return nota;
     }
@@ -44,7 +44,7 @@ public class NotaServiceImpl extends AbstractCrudService<Nota, Long> implements 
     @Transactional
     public void deleteById(Long id) {
         if (!notaRepository.existsById(id)) {
-            throw new IllegalArgumentException("Nota no encontrada");
+            throw new IllegalStateException("Nota no encontrada");
         }
         notaRepository.deleteById(id);
     }
@@ -52,7 +52,7 @@ public class NotaServiceImpl extends AbstractCrudService<Nota, Long> implements 
     @Transactional(readOnly = true)
     public List<Nota> findByUsuarioId(Long usuarioId, Sort sort) {
         if (usuarioId == null) {
-            throw new IllegalArgumentException("El usuarioId es obligatorio");
+            throw new IllegalStateException("El usuarioId es obligatorio");
         }
         return notaRepository.findByUsuarioId(usuarioId, sort);
     }
