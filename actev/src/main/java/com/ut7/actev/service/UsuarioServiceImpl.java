@@ -4,8 +4,6 @@ import com.ut7.actev.model.Usuario;
 import com.ut7.actev.repository.UsuarioRepository;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,21 +26,25 @@ public class UsuarioServiceImpl extends AbstractCrudService<Usuario, Long> imple
     }
 
     @Override
+    @Transactional
     public Usuario update(Long id, Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Usuario no encontrado");
+            throw new IllegalStateException("Usuario no encontrado");
         }
+        Usuario existing = usuarioRepository.findById(id).orElseThrow();
+        org.springframework.beans.BeanUtils.copyProperties(usuario, existing, "id", "notas");
         if (usuario.getPasswordHash() != null && usuario.getPasswordHash().length() < 64) {
-            usuario.hashPassword();
+            existing.setPasswordHash(usuario.getPasswordHash());
+            existing.hashPassword();
         }
-        return super.update(id, usuario);
+        return usuarioRepository.save(existing);
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
         if (!usuarioRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Usuario no encontrado");
+            throw new IllegalStateException("Usuario no encontrado");
         }
         usuarioRepository.deleteById(id);
     }

@@ -26,7 +26,7 @@ public class Usuario {
     @Column(unique = true)
     private String email;
     
-    @Size(min = 8, max = 15, message = "La contraseña debe tener entre 8 y 15 caracteres")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8")
     @NotBlank(message= "La contraseña es obligatoria.")
     private String passwordHash;
 

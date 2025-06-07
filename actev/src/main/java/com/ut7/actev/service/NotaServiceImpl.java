@@ -35,7 +35,7 @@ public class NotaServiceImpl extends AbstractCrudService<Nota, Long> implements 
     @Transactional
     public Nota update(Long id, Nota nota) {
         if (!notaRepository.existsById(id)) {
-            throw new IllegalArgumentException("Nota no encontrada");
+            throw new IllegalStateException("Nota no encontrada");
         }
         return super.update(id, nota);
     }

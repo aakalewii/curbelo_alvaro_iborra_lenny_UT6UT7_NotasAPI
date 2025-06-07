@@ -41,22 +41,14 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
-        return usuarioService.getById(id)
-                .map(existing -> {
-                    Usuario updated = usuarioService.update(id, usuario);
-                    return ResponseEntity.ok(updated);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        Usuario updated = usuarioService.update(id, usuario);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        return usuarioService.getById(id)
-                .map(existing -> {
-                    usuarioService.deleteById(id);
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+        usuarioService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
